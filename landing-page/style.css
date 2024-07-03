@@ -13,7 +13,7 @@ header, footer{
     color: white;
 }
 
-header .background{
+header {
     background-color: #1F2937;
 }
 
@@ -45,7 +45,7 @@ header .background{
 .hero img{
     width:600px;
     height:300px;
-    /* background-position: 50%; */
+    object-fit: cover;
 }
 
 .hero .left p{
@@ -61,10 +61,12 @@ header .background{
 
 .hero button{
     background-color: #3882F6;
-    padding: 5px 25px;
+    padding: 7px 30px;
     color: white;
     font-weight: bold;
+    font-size: 17px;
     border-radius: 5px;
+    border: 0;
     margin: 10px 0;
 }
 
@@ -72,7 +74,15 @@ header .background{
 /* FIRST SECTION */
 .firstSection{
     text-align: center;
+    margin: 40px;
 }
+
+.firstSection h2{
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 0 40px;
+}
+
 .cardContainer{
     display: flex;
     gap: 40px;
@@ -81,13 +91,15 @@ header .background{
 .card{
     margin: 0;
     width: 150px;
-    
+    height: 150px;
 }
 
 .card img{
     width: 100%;
+    height: 100%;
     border: solid 3px blue;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .card figcaption{
@@ -98,7 +110,74 @@ header .background{
 /* SECOND SECTION */
 .secondSection{
     background-color: #E5E7EB;
-    /* width: 100%; */
+    width: 100%;
+    margin: 120px 0 0;
+}
+
+.secondSection .container{
+    width: 780px;
+    padding: 100px;
+}
+
+.secondSection .container blockquote{
+    font-size: 36px;
+    font-weight: lighter;
+    font-style: italic;
+    margin: 0;
+}
+
+.secondSection .container blockquote p{
+    margin: 0;
+}
+
+.secondSection .container .author{
+    text-align: right;
+    font-weight: bold;
+    margin: 0;
+    font-size: 20px;
+}
+
+
+/* THIRD SECTION */
+.thirdSection .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3882F6;
+    border-radius: 5px;
+    color: white;
+    padding: 40px 100px;
+    box-sizing: border-box;
+    margin: 80px 0;
+}
+
+.thirdSection p{
+    margin: 0;
+}
+
+.thirdSection strong{
+    font-size: 18px;
+}
+
+.thirdSection button{
+    border: solid 2px white;
+    color: white;
+    height: 50%;
+    background-color: #3882F6;
+    padding: 5px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+/* FOOTER */
+
+footer{
+    background-color: #1F2937;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
 }
 
 
@@ -113,3 +192,4 @@ a{
     text-decoration: none;
     color: white;
 }
+
