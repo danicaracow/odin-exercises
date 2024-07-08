@@ -5,7 +5,7 @@ let computerChoice;
 
 
 function getComputerChoice(){
-    let num = Math.floor(Math.random() * 3);
+    const num = Math.floor(Math.random() * 3);
     switch(num){
         case 0:
             return "rock";
@@ -17,10 +17,9 @@ function getComputerChoice(){
 }
 
 function getHumanChoice(message){
-    let choice = prompt(message).toLowerCase();
+    const choice = prompt(message).toLowerCase();
 
     if(choice === "rock" | choice === "paper" | choice === "scissors"){
-        // console.log(choice);
         return choice;
     }
     else{
@@ -72,7 +71,20 @@ function playRound(humanChoice, computerChoice){
          + message + "\n\n"
          + "--POINTS--\n" 
          + "Computer: " + computerScore + "\n"
-         + "You: " + humanScore);
+         + "You: " + humanScore
+        );
+}
+
+function evaluateGame(humanScore, computerScore){
+    if (humanScore > computerScore){
+        alert("YOU WIN!!!");
+    }
+    else if (humanScore === computerScore){
+        alert("We have a TIE!");
+    }
+    else{
+        alert("You lose... better luck next time!")
+    }
 }
 
 function playGame(roundsNumber){
@@ -81,10 +93,10 @@ function playGame(roundsNumber){
         humanChoice = getHumanChoice("Rock, Paper or Scissors?");
         playRound(humanChoice, computerChoice);
     }
+
+    evaluateGame(humanScore, computerScore);
 }
 
-playGame(5);
-// computerChoice = getComputerChoice();
-// humanChoice = getHumanChoice("Rock, Paper or Scissors?");
-// playRound(humanChoice, computerChoice);
 
+
+playGame(5);
