@@ -69,7 +69,10 @@ function playRound(humanChoice, computerChoice){
     pointsUpdate(humanPointsIncrease, computerPointsIncrease);
     alert("Computer: " + computerChoice + "\n"
          + "You: " + humanChoice + "\n\n"
-         + message);
+         + message + "\n\n"
+         + "--POINTS--\n" 
+         + "Computer: " + computerScore + "\n"
+         + "You: " + humanScore);
 }
 
 computerChoice = getComputerChoice();
