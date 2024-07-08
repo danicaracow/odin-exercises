@@ -75,7 +75,16 @@ function playRound(humanChoice, computerChoice){
          + "You: " + humanScore);
 }
 
-computerChoice = getComputerChoice();
-humanChoice = getHumanChoice("Rock, Paper or Scissors?");
-playRound(humanChoice, computerChoice);
+function playGame(roundsNumber){
+    for (i=0; i<roundsNumber; i++){
+        computerChoice = getComputerChoice();
+        humanChoice = getHumanChoice("Rock, Paper or Scissors?");
+        playRound(humanChoice, computerChoice);
+    }
+}
+
+playGame(5);
+// computerChoice = getComputerChoice();
+// humanChoice = getHumanChoice("Rock, Paper or Scissors?");
+// playRound(humanChoice, computerChoice);
 
