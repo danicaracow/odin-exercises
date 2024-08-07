@@ -87,16 +87,35 @@ function evaluateGame(humanScore, computerScore){
     }
 }
 
-function playGame(roundsNumber){
-    for (i=0; i<roundsNumber; i++){
-        computerChoice = getComputerChoice();
-        humanChoice = getHumanChoice("Rock, Paper or Scissors?");
-        playRound(humanChoice, computerChoice);
-    }
+function playGame(){
+    computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
 
-    evaluateGame(humanScore, computerScore);
+    if(humanScore === 5 || computerScore === 5){
+        evaluateGame(humanScore, computerScore);
+    }
 }
 
 
+////// UI //////
+const menu = document.querySelector("#menu");
 
-playGame(5);
+menu.addEventListener("click", (e) => {
+    switch (e.target.id){
+        case "rock":
+            humanChoice = "rock";
+            console.log("rock");
+            break;
+            
+        case "paper":
+            humanChoice = "paper";
+            console.log("paper");
+            break;
+        case "scissors":
+            humanChoice = "scissors";
+            console.log("scissors");
+            break;
+    }
+
+    playGame();
+});
