@@ -16,17 +16,6 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(message){
-    const choice = prompt(message).toLowerCase();
-
-    if(choice === "rock" | choice === "paper" | choice === "scissors"){
-        return choice;
-    }
-    else{
-        return getHumanChoice("I did not understand your choice. Please try again!");
-    }
-}
-
 function pointsUpdate(humanPointsIncrease, computerPointsIncrease){
     humanScore += humanPointsIncrease;
     computerScore += computerPointsIncrease;
@@ -66,24 +55,26 @@ function playRound(humanChoice, computerChoice){
     }
 
     pointsUpdate(humanPointsIncrease, computerPointsIncrease);
-    alert("Computer: " + computerChoice + "\n"
-         + "You: " + humanChoice + "\n\n"
-         + message + "\n\n"
-         + "--POINTS--\n" 
-         + "Computer: " + computerScore + "\n"
-         + "You: " + humanScore
-        );
+
+    playerChoiceDiv.textContent = "You: " + humanChoice;
+    computerChoiceDiv.textContent = "Computer: " + computerChoice;
+    roundResultDiv.textContent = message;
+    totalResultDiv.textContent = 
+        "--POINTS--\n" 
+        + "Computer: " + computerScore + "\n"
+        + "You: " + humanScore
+    ;
 }
 
 function evaluateGame(humanScore, computerScore){
     if (humanScore > computerScore){
-        alert("YOU WIN!!!");
+        totalResultDiv.textContent = "YOU WIN!!!";
     }
     else if (humanScore === computerScore){
-        alert("We have a TIE!");
+        totalResultDiv.textContent = "We have a TIE!";
     }
     else{
-        alert("You lose... better luck next time!")
+        totalResultDiv.textContent = "You lose... better luck next time!";
     }
 }
 
@@ -98,6 +89,10 @@ function playGame(){
 
 
 ////// UI //////
+const playerChoiceDiv = document.querySelector("#playerChoiceDiv");
+const computerChoiceDiv = document.querySelector("#computerChoiceDiv");
+const roundResultDiv = document.querySelector("#roundResultDiv");
+const totalResultDiv = document.querySelector("#totalResultDiv");
 const menu = document.querySelector("#menu");
 
 menu.addEventListener("click", (e) => {
