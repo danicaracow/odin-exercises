@@ -1,3 +1,4 @@
+///GRID GENERATION///
 const grid = document.getElementById("grid");
 let cellsPerSide = 16;
 let totalCells;
@@ -48,21 +49,12 @@ function paintNewGrid(){
 
     for(i=0; i<totalCells; i++){
         const cell = document.createElement("div");
-        cell.addEventListener("mousedown", (e) => {
-            e.preventDefault;
-            cell.style.backgroundColor = "black";
-
-        });
-        cell.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                cell.style.backgroundColor = "black";
-            }
-        });
+        cell.addEventListener("mousedown", handleMouseDown);
+        cell.addEventListener("mouseover", handleMouseOver);
         cell.style.boxSizing = "border-box";
         cell.style.width = cellSize + "px";
         cell.style.height = cellSize + "px";
         cell.style.border = "1px solid black";
-        cell.style.boxSizing = "border-box";
         grid.appendChild(cell);
     }
 }
@@ -79,7 +71,7 @@ const cellNumberBtn = document.querySelector("#cellNumberBtn");
 cellNumberBtn.addEventListener("click", newGrid);
 
 
-///PAINTING LOGIC///
+///PAINTING///
 let isMouseDown = false;
 document.addEventListener("mousedown", (e) => {
     if (e.button === 0) {
@@ -90,6 +82,31 @@ document.addEventListener("mousedown", (e) => {
 document.addEventListener("mouseup", () => {
     isMouseDown = false;
 });
+
+function Paint(cell){
+    cell.style.backgroundColor = getRandomColor();
+    cell.removeEventListener("mousedown", handleMouseDown);
+    cell.removeEventListener("mouseover", handleMouseOver);
+}
+
+function getRandomColor(){
+    const num1 = Math.floor(Math.random() * 255);
+    const num2 = Math.floor(Math.random() * 255);
+    const num3 = Math.floor(Math.random() * 255);
+    console.log(`rgb(${num1}, ${num2}, ${num3})`);
+    return `rgb(${num1}, ${num2}, ${num3})`;
+}
+
+function handleMouseDown(event) {
+    Paint(event.target);
+    isMouseDown = true;
+}
+
+function handleMouseOver(event) {
+    if (isMouseDown) {
+        Paint(event.target);
+    }
+}
 
 
 
