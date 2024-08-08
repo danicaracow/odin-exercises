@@ -1,15 +1,7 @@
-// const CELLS_NUMBER = 256;
 const grid = document.getElementById("grid");
 let cellsPerSide = 16;
 let totalCells;
 let cellSize;
-// console.log(cellsPerSide);
-// console.log(totalCells);
-// console.log(cellSize);
-
-const cellNumberBtn = document.querySelector("#cellNumberBtn");
-cellNumberBtn.addEventListener("click", newGrid);
-//width: calc(100% / 16)
 
 function getTotalCells(){
     return cellsPerSide**2;
@@ -21,9 +13,7 @@ function getCellSize(){
 
 function newGrid(){
     cells = getCellNumber();
-    console.log(cells);
-    console.log(typeof(cells));
-    if(cells !== null){
+    if(cells !== null && typeof(cells) !== "undefined"){
         cellsPerSide = cells;
         removeGrid();
         paintNewGrid();
@@ -33,7 +23,7 @@ function newGrid(){
 
 function getCellNumber(){
     let input = prompt("Cells per side:");
-    if(input === null){
+    if(input === null){ //User cancels
         return;
     }
     
@@ -48,8 +38,7 @@ function getCellNumber(){
     else if(cells<16){
         cells = 16;
     }
-    // console.log(cells);
-    // console.log(typeof(cells));
+
     return cells;
 }
 
@@ -59,10 +48,19 @@ function paintNewGrid(){
 
     for(i=0; i<totalCells; i++){
         const cell = document.createElement("div");
+        cell.addEventListener("mousedown", (e) => {
+            e.preventDefault;
+            cell.style.backgroundColor = "black";
+
+        });
+        cell.addEventListener("mouseover", () => {
+            if (isMouseDown) {
+                cell.style.backgroundColor = "black";
+            }
+        });
         cell.style.boxSizing = "border-box";
         cell.style.width = cellSize + "px";
         cell.style.height = cellSize + "px";
-        // cell.style.height = "50px";
         cell.style.border = "1px solid black";
         cell.style.boxSizing = "border-box";
         grid.appendChild(cell);
@@ -76,4 +74,24 @@ function removeGrid(){
 }
 
 
+///NEW GRID BUTTON///
+const cellNumberBtn = document.querySelector("#cellNumberBtn");
+cellNumberBtn.addEventListener("click", newGrid);
+
+
+///PAINTING LOGIC///
+let isMouseDown = false;
+document.addEventListener("mousedown", (e) => {
+    if (e.button === 0) {
+        isMouseDown = true;
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    isMouseDown = false;
+});
+
+
+
+///ON START///
 paintNewGrid();
