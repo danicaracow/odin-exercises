@@ -7,6 +7,7 @@ const operators = ["+", "-", "x", "/"];
 const digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const regex = /^(\d+(\.\d+)?)([+\-x\/])(\d+(\.\d+)?)$/;
 let isOperator = false;
+let isValidOperation = false;
 
 
 function add(a, b){
@@ -98,38 +99,11 @@ function parseOperation(operation){
         console.log(num1);
         console.log(operator);
         console.log(num2);
+        isValidOperation = true;
     }
-    // array = [...operation];
-    // // console.log(array);
-    // array.forEach(char => {
-    //     if(digits.includes(char)){
-    //         addCurrentNum(char);
-    //     }
-    //     if(operators.includes(char)){
-    //         if(operator === ""){
-    //             setCurrentNum();
-    //             switch(char){
-    //             case "+":
-    //                 operator = "+";
-    //                 break;
-    //             case "-":
-    //                 operator = "-";
-    //                 break;
-    //             case "x":
-    //                 operator = "*";
-    //                 break;
-    //             case "/":
-    //                 operator = "/";
-    //                 break;
-    //             }
-    //         }
-    //         //If a second operator is detected
-    //         else{
-    //             getResult();
-    //             // screen.textContent += char;
-    //         }
-    //     }
-    // });
+    else isValidOperation = false;
+    
+    console.log(isValidOperation);
     
 }
 
@@ -138,6 +112,11 @@ const screen = document.querySelector("#screen");
 
 
 container.addEventListener("click", (event) => {
+    //If container is clicked do nothing
+    if(event.target.id === "container"){
+        return;
+    }
+
     const input = event.target.textContent;
     if(/[0-9]/.test(input)){
         // addCurrentNum(event);
@@ -152,8 +131,12 @@ container.addEventListener("click", (event) => {
         isOperator = false;
     } 
     else if(input === "="){
-        getResult();
-        isOperator = false;
+        if(isValidOperation){
+            getResult();
+            isOperator = false;
+            isValidOperation = false;
+        }
+        
     }
     else if(operators.includes(input)){
         if(!isOperator){
@@ -162,8 +145,11 @@ container.addEventListener("click", (event) => {
             isOperator = true;
         }
         else{
-            getResult();
-            displayOperation(event);
+            if(num2 !== null){
+                getResult();
+                displayOperation(event);
+            }
+            
         }
         
 
