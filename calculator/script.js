@@ -5,7 +5,7 @@ let operator = "";
 let result = "";
 const operators = ["+", "-", "x", "/"];
 const digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const regex = /^(\d+)([+\-x\/])(\d+)$/;
+const regex = /^(\d+(\.\d+)?)([+\-x\/])(\d+(\.\d+)?)$/;
 let isOperator = false;
 
 
@@ -58,14 +58,14 @@ function getResult(){
     console.log(num1);
     console.log(num2);
     console.log(operator);
-    result = operate(num1, num2, operator);
+    result = parseFloat(operate(num1, num2, operator).toFixed(2));
     // num1 = result;
     currentNum = result;
     displayResult(currentNum);
     num1 = null;
     num2 = null;
     operator = "";
-    // console.log(result);
+    console.log(result);
 }
 
 function setCurrentNum(){
@@ -85,14 +85,19 @@ function setCurrentNum(){
 
 function parseOperation(operation){
     let match = operation.match(regex);
-    console.log(match);
+    
     if (match) {
-        num1 = parseInt(match[1], 10);  // First number
+        console.log(match);
+        num1 = parseFloat(match[1]);  // First number
         
-        if(match[2] === "x") operator = "*"; //Operator
-        else operator = match[2];
+        if(match[3] === "x") operator = "*"; //Operator
+        else operator = match[3];
 
-        num2 = parseInt(match[3], 10);  // Second number
+        num2 = parseFloat(match[4]);  // Second number
+
+        console.log(num1);
+        console.log(operator);
+        console.log(num2);
     }
     // array = [...operation];
     // // console.log(array);
@@ -144,6 +149,7 @@ container.addEventListener("click", (event) => {
         num1 = "";
         num2 = "";
         operator = "";
+        isOperator = false;
     } 
     else if(input === "="){
         getResult();
@@ -156,7 +162,8 @@ container.addEventListener("click", (event) => {
             isOperator = true;
         }
         else{
-            console.log("doble operator!");
+            getResult();
+            displayOperation(event);
         }
         
 
