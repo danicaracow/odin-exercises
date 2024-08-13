@@ -5,9 +5,10 @@ let operator = "";
 let result = "";
 const operators = ["+", "-", "x", "/"];
 const digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const regex = /^(\d+(\.\d+)?)([+\-x\/])(\d+(\.\d+)?)$/;
+const regex = /^((\-)?\d+(\.\d+)?)([+\-x\/])(\d+(\.\d+)?)$/;
 let isOperator = false;
 let isValidOperation = false;
+let isError = false;
 
 
 function add(a, b){
@@ -24,6 +25,7 @@ function multiply(a, b){
 
 function divide(a, b){
     return a / b;
+    
 }
 
 function operate(num1, num2, operator){
@@ -56,32 +58,17 @@ function addCurrentNum(char){
 }
 
 function getResult(){
-    console.log(num1);
-    console.log(num2);
-    console.log(operator);
+    if(num2===0 && operator === "/"){
+        isError = true;
+        displayResult("ERROR");
+        return;
+    }
     result = parseFloat(operate(num1, num2, operator).toFixed(2));
-    // num1 = result;
     currentNum = result;
     displayResult(currentNum);
     num1 = null;
     num2 = null;
     operator = "";
-    console.log(result);
-}
-
-function setCurrentNum(){
-    if(num1 === null && num2 === null){
-        num1 = currentNum;
-        // displayOperation(event);
-        // console.log("hey!");
-    }
-    else if(num1 !== null && num2 === null){
-        num2 = currentNum;
-    }
-    else if(num1 !== null && num2 !== null){
-        getResult();
-    }
-    currentNum = "";
 }
 
 function parseOperation(operation){
@@ -91,20 +78,23 @@ function parseOperation(operation){
         console.log(match);
         num1 = parseFloat(match[1]);  // First number
         
-        if(match[3] === "x") operator = "*"; //Operator
-        else operator = match[3];
+        if(match[4] === "x") operator = "*"; //Operator
+        else operator = match[4];
 
-        num2 = parseFloat(match[4]);  // Second number
+        num2 = parseFloat(match[5]);  // Second number
 
-        console.log(num1);
-        console.log(operator);
-        console.log(num2);
         isValidOperation = true;
     }
     else isValidOperation = false;
-    
-    console.log(isValidOperation);
-    
+}
+
+function cleanData(){
+    screen.textContent = "";
+    num1 = "";
+    num2 = "";
+    operator = "";
+    isOperator = false;
+    isError = false;
 }
 
 const container = document.querySelector("#container");
@@ -119,16 +109,14 @@ container.addEventListener("click", (event) => {
 
     const input = event.target.textContent;
     if(/[0-9]/.test(input)){
-        // addCurrentNum(event);
+        if(screen.textContent==="ERROR"){
+            cleanData();
+        }
         displayOperation(event);
         parseOperation(screen.textContent);
     } 
     else if(input === "AC"){
-        screen.textContent = "";
-        num1 = "";
-        num2 = "";
-        operator = "";
-        isOperator = false;
+        cleanData();
     } 
     else if(input === "="){
         if(isValidOperation){
@@ -136,9 +124,11 @@ container.addEventListener("click", (event) => {
             isOperator = false;
             isValidOperation = false;
         }
-        
     }
     else if(operators.includes(input)){
+        if(isError){
+            return;
+        }
         if(!isOperator){
             displayOperation(event);
             parseOperation(screen.textContent);
@@ -149,65 +139,6 @@ container.addEventListener("click", (event) => {
                 getResult();
                 displayOperation(event);
             }
-            
         }
-        
-
     }
-
-    // console.log("result");
-    
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// container.addEventListener("click", (event) => {
-//     const input = event.target.textContent;
-//     if(/[0-9]/.test(input)){
-//         addCurrentNum(event);
-//         displayOperation(event);
-//     } 
-//     else if(input === "AC"){
-//         screen.textContent = "";
-//         num1 = "";
-//         num2 = "";
-//         operator = "";
-//     } 
-//     else if(input === "="){
-//         getResult();
-//     }
-//     else if(input === "+" || input === "-" || input === "x" || input === "/"){
-//         if(num1 !== null && num2 !== null){
-//             setCurrentNum();
-//             getResult();
-//             displayOperation(input);
-            
-//         }
-//         else{
-//             setCurrentNum();
-//             // displayOperation(event);
-            
-//         }
-//     }
-//     // console.log("result");
-    
-// });
-
-
-
-// console.log(typeof(screen.textContent));
