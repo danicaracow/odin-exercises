@@ -1,16 +1,25 @@
 body{
     font-family: "Orbitron", Arial, Helvetica, sans-serif;
     display: flex;
-    height: 100rem;
+    justify-content: center;
+    height: 1000px;
     background-color: rgb(240, 240, 240);
     box-sizing: border-box;
+    margin: 0;
 }
 
 .background{
     background-image: url(./images/background.png);
     background-repeat: no-repeat;
-    width: 600px;
+    width: 40%;
+    max-width: 1024px;
     position: relative;
+}
+
+.background p{
+    position: absolute;
+    bottom: 0;
+    left: 40%;
 }
 
 .title > * {
@@ -34,7 +43,8 @@ body{
 }
 
 .container{
-    width: 100%;
+    width: auto;
+    margin-top: 150px;
 }
 
 .container > h2, .container > p{
@@ -87,4 +97,9 @@ a{
     font-weight: bold;
     text-decoration: none;
     color: rgb(242, 136, 86);
+}
+
+#copyright{
+    color: white;
+    background-color: rgba(0,0,0,0.2);
 }
