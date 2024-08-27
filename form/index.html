@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
+    <div class="background">
+        <div class="title">
+            <img class="logo" src="./images/odin-lined.png">
+            <h1>Odin's Space Travel</h1>
+        </div>
+    </div>
     
+    <div class="container">
+        <h2>Have you ever dreamt with the possibility of traveling through outer space?</h2>
+        <br>
+        <h2>Now is the moment!</h2>
+
+        <form id="dataform" action="#" method="post">
+            <div class="formContainer">
+                <h2>Enter you user data</h2>
+                <div>
+                    <label for="name">First name</label>
+                    <input type="name" id="name" name="name" placeholder="Adam" required>
+                </div>
+                <div>
+                    <label for="lastname">Last name</label>
+                    <input type="name" id="lastname" name="lastName" placeholder="Petrovsky" required>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="adam_petrovsky@ufo.un" required>
+                </div>
+                <div>
+                    <label for="phone">Phone number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="665639178">
+                </div>
+                <div>
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass" name="password" required>
+                </div>
+                <div>
+                    <label for="passConf">Confirm password</label>
+                    <input type="password" id="passConf" name="passwordConf" required>
+                </div>
+            </div>
+        </form>
+
+        <button type="submit" form="dataform">Create Account</button>
+        <p>Already have an account? <span><a href="#">Log in</a></span></p>
+    </div>
 </body>
 </html>
