@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='style.css'/>
+    <script src="script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <button id="new-book">New book...</button>
+    <dialog>
+        <form id="book-form">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required></input>
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" required></input>
+            <label for="pages">Pages</label>
+            <input type="number" name="pages" id="pages" required></input>
+
+            <label class="switch" for="read">
+                <input type="checkbox" name="read" id="read">
+                <span class="slider round"></span>
+            </label>
+
+            
+        </form>
+
+        <button id="submit-book" form="book-form" type="submit">Add Book</button>
+    </dialog>
+    
+    
+    
+
+    <div class="container">
+
+    </div>
+</body>
+</html>
