@@ -5,9 +5,9 @@ function Gameboard(){
     const board = [];
     let position = 1;
 
-    for(i=0; i<rows; i++){
+    for(let i=0; i<rows; i++){
         board[i] = [];
-        for(j=0; j<columns; j++){
+        for(let j=0; j<columns; j++){
             board[i].push(Cell());
             board[i][j].position = position;
             position++;
@@ -15,7 +15,10 @@ function Gameboard(){
         }
     }
 
-    return board;
+    const getRows = () => rows;
+    const getColumns = () => columns;
+
+    return {board, getRows, getColumns};
 }
 
 function Cell(){
@@ -31,33 +34,47 @@ function Cell(){
 function GameController(){
     const players = [{name: "Hugo"}, {name: "Petra"}];
     let playerTurn = players[0];
-    const board = Gameboard();
+    const gameboard = Gameboard();
 
     const switchTurn = () => playerTurn = playerTurn === players[0] ? players[1] : players[0];
 
     const choseCell = () => {
-        const cell = 0;
-        
-        const row = prompt("Select row:");
-        const column = prompt("Select column:");
-        
-        if (board[row][column].getValue() === 0){
-            board[row][column].setValue(playerTurn);
-            console.log(board[row][column]);
+        let row = prompt("Select row:");
+        let column = prompt("Select column:");
+
+        // console.log(checkCell(row, column));
+        if (checkCell(row, column)) gameboard.board[row][column].setValue(playerTurn);
+        else{
+            alert("Position already taken or out of bounds!");
+            choseCell();
         }
 
-        // console.log(board[row][column].getValue());
+    }
+
+    const checkCell = (row, column) => {
+        // console.log("hola");
+        // console.log(row);
+        // console.log(column);
+        // console.log(gameboard.board[row][column].getValue());
+
+        if (gameboard.board[row][column].getValue() === 0 && row <= gameboard.getRows() && column <= gameboard.getColumns()){
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
     const playTurn = () => {
         choseCell();
-        switchTurn();
+        // switchTurn();
+        evaluateGame();
         // console.log(playerTurn);
     }
 
     const displayBoard = () => {
-        board.forEach((ele) => {
+        gameboard.board.forEach((ele) => {
             console.log("\n");
             let rowDisplay = "";
             ele.forEach((ele) => {
@@ -67,11 +84,118 @@ function GameController(){
         })
     }
 
+    const evaluateGame = () => {
+        const completeRow = "";
+        const rows = gameboard.getRows();
+        const columns = gameboard.getColumns();
+
+        function isUndefined(array){
+            // console.log(array.length);
+            for(let i=0; i<array.length; i++){
+                // console.log(array[i]);
+
+                if(array[i].getValue() === 0) {
+                    // console.log("UNDEFINED FOUND");
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        // check rows
+        for(let i=0; i<gameboard.getRows(); i++){
+            let allEqual = true;
+
+            for(let j=0; j<gameboard.getColumns(); j++){
+                if(gameboard.board[i][j].getValue() !== gameboard.board[i][0].getValue() 
+                || gameboard.board[i][j].getValue() === 0){
+                    allEqual = false;
+                    break;
+                }
+            }
+
+            if(allEqual){
+                console.log("complete line in row " + i);
+            }
+        }
+
+        // CHECK COLUMNS
+        for(let j=0; j<gameboard.getRows(); j++){
+            let allEqual = true;
+            
+            for(let i=0; i<gameboard.getRows(); i++){
+                if(gameboard.board[i][j].getValue() !== gameboard.board[0][j].getValue() 
+                || gameboard.board[i][j].getValue() === 0){
+                    allEqual = false;
+                    break;
+                }
+            }
+
+            if(allEqual){
+                console.log("complete line in column " + j);
+            }
+        }
+
+        //CHECK DIAGONALS
+        for(let i=0; i<gameboard.getColumns(); i++){
+            let allEqual = true;
+
+            if(gameboard.board[i][i].getValue() !== gameboard.board[0][0].getValue() 
+            || gameboard.board[i][i].getValue() === 0){
+                allEqual = false;
+                break;
+
+            }
+
+            if(allEqual){
+                console.log("complete diagonal line");
+            }
+        }
+
+        // for(let i=0; i<gameboard.getRows(); i++){
+        //     let allEqual = true;
+
+        //     if(gameboard.board[i][gameboard.getRows()-1-i].getValue() !== gameboard.board[0][gameboard.getRows()-1].getValue() 
+        //     || gameboard.board[i][gameboard.getRows()-1-i].getValue() === 0){
+        //         allEqual = false;
+        //         break;
+
+        //     }
+
+        //     if(allEqual){
+        //         console.log("complete diagonal line");
+        //     }
+        // }
+
+        
+        // for(let i=0; i<gameboard.getColumns(); i++){
+        //     // console.log(gameboard.board[i].length);
+        //     const allEqual = false;
+        //     if (isUndefined(gameboard.board[i])) continue;
+
+        //     for(let j=0; j<gameboard.getRow)
+
+        //     // const allEqual = gameboard.board[i].every(ele => {
+        //     //     if(ele === undefined) return false;
+        //     //     else return ele.getValue() === gameboard.board[i][0].getValue();
+        //     // })
+
+        //     if(allEqual){
+        //         console.log("complete line in row " + i);
+        //     }
+        // }
+    }
+
     return{playTurn, displayBoard};
 }
 
 const game = GameController();
 game.playTurn();
 game.playTurn();
+game.playTurn();
+// game.playTurn();
+// game.playTurn();
+// game.playTurn();
 game.displayBoard();
 
